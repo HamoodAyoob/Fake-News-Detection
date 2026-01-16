@@ -129,6 +129,12 @@ class ModelEvaluator:
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
             print(f"Confusion matrix saved to: {save_path}")
+            
+            # Verify file was created
+            if os.path.exists(save_path):
+                print(f"  ✅ File exists: {os.path.getsize(save_path)} bytes")
+            else:
+                print(f"  ❌ File NOT created!")
         
         plt.close()
     
@@ -368,28 +374,64 @@ def main():
     
     # Create visualizations
     print("\nGenerating visualizations...")
+    
+    print("  1. Confusion Matrix...")
     evaluator.plot_confusion_matrix('models/confusion_matrix.png')
+    
+    print("  2. ROC Curve...")
     evaluator.plot_roc_curve('models/roc_curve.png')
+    
+    print("  3. Precision-Recall Curve...")
     evaluator.plot_precision_recall_curve('models/precision_recall_curve.png')
     
     # Feature importance (if applicable)
     if hasattr(model, 'feature_importances_'):
+        print("  4. Feature Importance...")
         feature_names = engineer.get_feature_names()
         evaluator.plot_feature_importance(
             feature_names, 
             top_n=20, 
             save_path='models/feature_importance.png'
         )
+    else:
+        print("  4. Feature Importance... (skipped - not available for this model)")
     
     # Word clouds
+    print("  5. Word Clouds...")
     evaluator.create_wordclouds(df, save_dir='models')
     
     # Save metrics
+    print("\nSaving metrics to file...")
     evaluator.save_metrics_to_file(metrics, model_name, 'models/model_metrics.txt')
+    
+    # List all generated files
+    print("\n" + "="*60)
+    print("GENERATED FILES")
+    print("="*60)
+    
+    files_to_check = [
+        'models/model_metrics.txt',
+        'models/confusion_matrix.png',
+        'models/roc_curve.png',
+        'models/precision_recall_curve.png',
+        'models/feature_importance.png',
+        'models/fake_news_wordcloud.png',
+        'models/real_news_wordcloud.png'
+    ]
+    
+    for file in files_to_check:
+        if os.path.exists(file):
+            size = os.path.getsize(file)
+            print(f"✅ {file} ({size:,} bytes)")
+        else:
+            print(f"❌ {file} (not created)")
     
     print("\n" + "="*60)
     print("EVALUATION COMPLETED!")
     print("="*60)
+    print("\nView visualizations in the 'models/' folder")
+    print("Or run the Streamlit app to see them:")
+    print("  streamlit run app/streamlit_app.py")
 
 
 if __name__ == "__main__":
