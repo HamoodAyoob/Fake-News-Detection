@@ -140,15 +140,24 @@ class DataPreprocessor:
         """
         features = {}
         
+        # Handle empty or invalid text
+        if not isinstance(text, str) or not text.strip():
+            text = "empty"
+        if not isinstance(original_text, str) or not original_text.strip():
+            original_text = "empty"
+        
         # Text length (character count)
         features['text_length'] = len(original_text)
         
         # Word count
-        features['word_count'] = len(text.split())
+        words = text.split()
+        features['word_count'] = len(words)
         
         # Average word length
-        words = text.split()
-        features['avg_word_length'] = np.mean([len(word) for word in words]) if words else 0
+        if words:
+            features['avg_word_length'] = np.mean([len(word) for word in words])
+        else:
+            features['avg_word_length'] = 0.0
         
         # Punctuation counts
         features['exclamation_count'] = original_text.count('!')
@@ -160,12 +169,23 @@ class DataPreprocessor:
         
         # Capital letter ratio
         capitals = sum(1 for c in original_text if c.isupper())
-        features['capital_ratio'] = capitals / len(original_text) if len(original_text) > 0 else 0
+        features['capital_ratio'] = capitals / len(original_text) if len(original_text) > 0 else 0.0
         
         # Sentiment analysis using TextBlob
-        blob = TextBlob(original_text)
-        features['sentiment_polarity'] = blob.sentiment.polarity
-        features['sentiment_subjectivity'] = blob.sentiment.subjectivity
+        try:
+            blob = TextBlob(original_text)
+            features['sentiment_polarity'] = blob.sentiment.polarity
+            features['sentiment_subjectivity'] = blob.sentiment.subjectivity
+        except:
+            features['sentiment_polarity'] = 0.0
+            features['sentiment_subjectivity'] = 0.0
+        
+        # Ensure all values are floats and not NaN
+        for key in features:
+            if features[key] is None or np.isnan(features[key]) or np.isinf(features[key]):
+                features[key] = 0.0
+            else:
+                features[key] = float(features[key])
         
         return features
     

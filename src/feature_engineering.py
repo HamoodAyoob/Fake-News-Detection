@@ -70,13 +70,19 @@ class FeatureEngineer:
         # Select statistical features
         stat_features = df[self.statistical_features].values
         
+        # Replace any NaN or inf values with 0
+        stat_features = np.nan_to_num(stat_features, nan=0.0, posinf=0.0, neginf=0.0)
+        
         if fit:
             print("Fitting scaler for statistical features...")
             normalized_features = self.scaler.fit_transform(stat_features)
         else:
             print("Transforming with existing scaler...")
             normalized_features = self.scaler.transform(stat_features)
-            
+        
+        # Final check for NaN
+        normalized_features = np.nan_to_num(normalized_features, nan=0.0, posinf=0.0, neginf=0.0)
+        
         print(f"Statistical features shape: {normalized_features.shape}")
         
         return normalized_features
