@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
@@ -29,7 +29,7 @@ class ModelTrainer:
                 C=1.0,
                 random_state=42
             ),
-            'Naive Bayes': MultinomialNB(alpha=1.0),
+            'Naive Bayes': GaussianNB(),
             'SVM': SVC(
                 kernel='linear',
                 C=1.0,
