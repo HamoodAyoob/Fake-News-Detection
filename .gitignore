@@ -35,7 +35,7 @@ ENV/
 .DS_Store
 
 # Data files
-data/processed/
+data/raw/*.csv
 
 # Model files
 models/*.pkl
