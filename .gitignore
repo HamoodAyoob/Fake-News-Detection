@@ -39,19 +39,6 @@ data/raw/*.csv
 data/processed/
 *.csv
 
-
-# Model files
-models/*.pkl
-models/*.h5
-models/*.joblib
-
-# Images
-*.png
-*.jpg
-*.jpeg
-*.gif
-!docs/screenshots/*.png
-
 # Logs
 *.log
 logs/
@@ -59,9 +46,6 @@ logs/
 # Environment variables
 .env
 .env.local
-
-# Streamlit
-.streamlit/
 
 # Misc
 *.bak
