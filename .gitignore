@@ -36,6 +36,9 @@ ENV/
 
 # Data files
 data/raw/*.csv
+data/processed/
+*.csv
+
 
 # Model files
 models/*.pkl
