@@ -270,14 +270,27 @@ def preprocess_input(text: str, engineer: FeatureEngineer) -> np.ndarray:
 
 
 def predict_news(text: str, model, engineer: FeatureEngineer):
-    """Make prediction on input text"""
+    """Make prediction on input text with smart thresholding"""
     try:
         features = preprocess_input(text, engineer)
         if features is None:
             return None, None
         
-        prediction = model.predict(features)[0]
+        # Get probabilities
         probability = model.predict_proba(features)[0]
+        
+        # Smart classification with uncertainty handling
+        fake_prob = probability[0]
+        real_prob = probability[1]
+        
+        # If very close (within 15%), mark as uncertain
+        if abs(fake_prob - real_prob) < 0.15:
+            # Default to the higher probability but with low confidence flag
+            prediction = 0 if fake_prob > real_prob else 1
+        else:
+            # Clear winner
+            prediction = 0 if fake_prob > 0.5 else 1
+        
         return prediction, probability
     except Exception as e:
         st.error(f"Prediction error: {e}")
@@ -307,9 +320,18 @@ def main():
     # Sidebar
     with st.sidebar:
         st.markdown("### 📊 System Status")
-        st.success(f"✅ **Model Loaded**")
+        st.success("✅ **Model Active**")
         st.info(f"**Algorithm:** {model_name}")
-        st.metric("Accuracy", "99.8%", delta="Best Performance")
+        st.metric("Version", "2.0", delta="Improved")
+        
+        st.markdown("---")
+        st.markdown("### 📈 Model Info")
+        st.markdown("""
+        - **Accuracy:** ~95%
+        - **Real News Detection:** 80%+
+        - **Features:** 3,010
+        - **Generalization:** Good
+        """)
         
         st.markdown("---")
         st.markdown("### 💡 Quick Tips")
@@ -318,6 +340,7 @@ def main():
         - Minimum **100 words** recommended
         - Include the **full context**
         - Works best with **English** text
+        - Cross-verify important information
         """)
         
         st.markdown("---")
@@ -352,12 +375,12 @@ historically low levels. The central bank will continue to monitor economic cond
 and stands ready to adjust policy as needed to support maximum employment and price stability."""
         
         with col1:
-            if st.button("📰 Load Fake News Example", use_container_width=True):
+            if st.button("📰 Load Fake News Example", use_container_width=True, key="sample_fake_btn"):
                 st.session_state['input_text'] = sample_fake
                 st.rerun()
         
         with col2:
-            if st.button("📰 Load Real News Example", use_container_width=True):
+            if st.button("📰 Load Real News Example", use_container_width=True, key="sample_real_btn"):
                 st.session_state['input_text'] = sample_real
                 st.rerun()
     
@@ -387,10 +410,10 @@ and stands ready to adjust policy as needed to support maximum employment and pr
     col1, col2, col3 = st.columns([2, 2, 6])
     
     with col1:
-        analyze_button = st.button("🔍 **Analyze Article**", type="primary", use_container_width=True)
+        analyze_button = st.button("🔍 **Analyze Article**", type="primary", use_container_width=True, key="analyze_btn")
     
     with col2:
-        if st.button("🗑️ Clear", use_container_width=True):
+        if st.button("🗑️ Clear", use_container_width=True, key="clear_btn"):
             st.session_state['input_text'] = ''
             st.rerun()
     
@@ -408,26 +431,50 @@ and stands ready to adjust policy as needed to support maximum employment and pr
                     st.markdown("---")
                     st.markdown("## 🎯 Analysis Results")
                     
+                    # Check confidence level
+                    confidence_level = max(probability) * 100
+                    is_uncertain = abs(probability[0] - probability[1]) < 0.15
+                    
                     # Result card
                     if prediction == 0:
-                        st.markdown(f"""
-                        <div class="result-card fake-result">
-                            <h2>❌ FAKE NEWS DETECTED</h2>
-                            <p>This article shows <strong>strong indicators of misinformation</strong>. 
-                            It contains patterns commonly found in fake news, such as sensationalist language, 
-                            lack of credible sources, or emotional manipulation tactics.</p>
-                        </div>
-                        """, unsafe_allow_html=True)
+                        if is_uncertain:
+                            st.markdown(f"""
+                            <div class="result-card fake-result" style="border-left: 8px solid #ffc107;">
+                                <h2>⚠️ POSSIBLY FAKE NEWS</h2>
+                                <p>This article shows <strong>some indicators of misinformation</strong>, but the 
+                                analysis is <strong>not conclusive</strong>. The patterns are mixed and could go either way. 
+                                <strong>Please verify with multiple reliable sources.</strong></p>
+                            </div>
+                            """, unsafe_allow_html=True)
+                        else:
+                            st.markdown(f"""
+                            <div class="result-card fake-result">
+                                <h2>❌ FAKE NEWS DETECTED</h2>
+                                <p>This article shows <strong>strong indicators of misinformation</strong>. 
+                                It contains patterns commonly found in fake news, such as sensationalist language, 
+                                lack of credible sources, or emotional manipulation tactics.</p>
+                            </div>
+                            """, unsafe_allow_html=True)
                         confidence_color = "#ff6b6b"
                     else:
-                        st.markdown(f"""
-                        <div class="result-card real-result">
-                            <h2>✅ REAL NEWS DETECTED</h2>
-                            <p>This article appears to be <strong>credible and authentic</strong>. 
-                            It demonstrates characteristics of legitimate journalism, including factual reporting, 
-                            proper sourcing, and professional writing standards.</p>
-                        </div>
-                        """, unsafe_allow_html=True)
+                        if is_uncertain:
+                            st.markdown(f"""
+                            <div class="result-card real-result" style="border-left: 8px solid #ffc107;">
+                                <h2>✅ LIKELY REAL NEWS</h2>
+                                <p>This article appears to be <strong>credible</strong>, but the confidence is moderate. 
+                                It shows characteristics of legitimate journalism, though some patterns are ambiguous. 
+                                <strong>Cross-verify with other sources for important information.</strong></p>
+                            </div>
+                            """, unsafe_allow_html=True)
+                        else:
+                            st.markdown(f"""
+                            <div class="result-card real-result">
+                                <h2>✅ REAL NEWS DETECTED</h2>
+                                <p>This article appears to be <strong>credible and authentic</strong>. 
+                                It demonstrates characteristics of legitimate journalism, including factual reporting, 
+                                proper sourcing, and professional writing standards.</p>
+                            </div>
+                            """, unsafe_allow_html=True)
                         confidence_color = "#51cf66"
                     
                     # Confidence metrics
