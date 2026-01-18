@@ -118,14 +118,19 @@ with st.expander("📋 Instructions"):
     5. **Download results** as a new CSV file
     
     ### CSV Format:
-    Your CSV should have at least one column with article text. Example:
-    
-    | id | article | author | date |
-    |----|---------|--------|------|
-    | 1  | Breaking news... | John | 2024-01-01 |
-    | 2  | Scientists discover... | Jane | 2024-01-02 |
-    
-    The tool will add prediction columns to your data.
+Your CSV should have a column named **'article'** containing the news text. That's all you need!
+
+**Example:**
+
+| article |
+|---------|
+| Breaking news: Scientists discover... |
+| Federal Reserve announces... |
+| You won't believe what happened... |
+
+The tool will add prediction columns (prediction, confidence, fake_prob, real_prob) to your data.
+
+**Note:** You can include other columns (like id, source, date) if you want, but only the 'article' column is required.
     """)
 
 # File upload
@@ -212,25 +217,25 @@ else:
     st.info("👆 Upload a CSV file to get started!")
     
     # Sample CSV
-    st.markdown("### 📝 Sample CSV Template")
-    
-    sample_data = {
-        'id': [1, 2, 3],
-        'article': [
-            'Breaking news: Scientists discover amazing breakthrough!',
-            'Federal Reserve maintains interest rates unchanged.',
-            'You won\'t believe what happened next! Doctors hate this trick!'
-        ],
-        'source': ['NewsSource1', 'Reuters', 'ClickbaitSite']
-    }
-    
-    sample_df = pd.DataFrame(sample_data)
-    st.dataframe(sample_df, use_container_width=True)
-    
-    csv = sample_df.to_csv(index=False)
-    st.download_button(
-        label="📥 Download Sample CSV",
-        data=csv,
-        file_name="sample_template.csv",
-        mime="text/csv"
-    )
+st.markdown("### 📄 Sample CSV Template")
+
+sample_data = {
+    'article': [
+        'Breaking news: Scientists discover amazing breakthrough!',
+        'Federal Reserve maintains interest rates unchanged.',
+        'You won\'t believe what happened next! Doctors hate this trick!'
+    ]
+}
+
+sample_df = pd.DataFrame(sample_data)
+st.dataframe(sample_df, use_container_width=True)
+
+st.info("💡 Your CSV only needs one column named 'article' with the news text. No ID or source needed!")
+
+csv = sample_df.to_csv(index=False)
+st.download_button(
+    label="📥 Download Sample CSV",
+    data=csv,
+    file_name="sample_template.csv",
+    mime="text/csv"
+)
