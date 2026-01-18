@@ -63,22 +63,22 @@ This project implements a sophisticated fake news detection system that analyzes
 
 ## 🌐 Live Demo
 
-🔗 **[Try the App Here](your-streamlit-app-url)**
+🔗 **[Try the App Here](https://fake-news-detection-tcsion.streamlit.app/)**
 
 *Replace with your actual Streamlit deployment URL*
 
 ## 📸 Screenshots
 
 ### Main Prediction Interface
-![Main Interface](screenshots/main_interface.png)
+![Main Interface](https://i.ibb.co/j9FH2r0w/Screenshot-2026-01-18-214854.png)
 *Clean, intuitive interface for analyzing news articles*
 
 ### Results Dashboard
-![Results](screenshots/results.png)
+![Results](https://i.ibb.co/W46v7f9Y/Screenshot-2026-01-18-215005.png)
 *Detailed confidence analysis with visual indicators*
 
 ### Batch Processing
-![Batch](screenshots/batch_processing.png)
+![Batch](https://i.ibb.co/PzDZcJSw/Screenshot-2026-01-18-214913.png)
 *Process multiple articles from CSV files*
 
 ## 🚀 Installation
@@ -92,7 +92,7 @@ This project implements a sophisticated fake news detection system that analyzes
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/fake-news-detection.git
+git clone https://github.com/HamoodAyoob/Fake-News-Detection.git
 cd fake-news-detection
 ```
 
@@ -336,52 +336,6 @@ C = 0.1  # Regularization
 solver = 'saga'
 max_iter = 1000
 ```
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Areas for Improvement
-- [ ] Add more ML models (BERT, transformers)
-- [ ] Implement REST API
-- [ ] Add multilingual support
-- [ ] Create mobile app
-- [ ] Add real-time news fetching
-- [ ] Improve real news detection accuracy
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
-
-## 🙏 Acknowledgments
-
-- Dataset provided by [Clément Bisaillon](https://www.kaggle.com/clmentbisaillon) on Kaggle
-- Streamlit team for the amazing framework
-- scikit-learn contributors
-- NLTK developers
-
-## 📧 Contact
-
-- **Email**: your.email@example.com
-- **LinkedIn**: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **Project Link**: [https://github.com/yourusername/fake-news-detection](https://github.com/yourusername/fake-news-detection)
-
-## ⚠️ Disclaimer
-
-This tool is for educational and research purposes. While it achieves high accuracy, it should not be the sole source for determining news credibility. Always cross-verify information with multiple reliable sources.
-
----
 
 **Made with ❤️ and Python**
 
