@@ -14,6 +14,11 @@ from textblob import TextBlob
 import os
 from tqdm import tqdm
 
+nltk.download('punkt')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
 # Download required NLTK data
 try:
     nltk.data.find('tokenizers/punkt')
