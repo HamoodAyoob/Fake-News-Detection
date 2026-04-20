@@ -1,0 +1,113 @@
+Fake News Detection using Social Media Data
+
+Project Objective
+
+Develop a Machine Learning-based system that identifies and flags fake news on social
+media platforms by analysing the text content of posts.
+
+The system will use Natural Language Processing (NLP) techniques to classify news articles
+and social media posts as real or fake based on linguistic patterns, metadata, and content
+similarity.
+
+Project Guidelines
+
+Context
+
+The proliferation of fake news on social media poses a significant threat to public discourse, leading
+to misinformation and distrust in media. Identifying fake news through automated systems can
+reduce the spread of misinformation. This project aims to leverage text analytics and machine
+learning to differentiate between real and fake news shared on social platforms.
+
+Background
+
+With the rise of social media as a primary news source, there has been a corresponding increase in
+the dissemination of fake news. Machine learning models, in combination with NLP techniques, are
+now being used to detect fake news by analyzing the content of articles and posts. This system will
+analyze text for indicators such as sensationalism, unreliable sources, or factual inconsistencies to
+flag potential fake news.
+
+Step-by-step Approach to Develop the Project
+
+1. Data collection and Pre-processing: Gather a dataset of labeled real and fake news articles from social media
+platforms. Clean the dataset by removing duplicates, irrelevant data, and noise.
+2. Model development: Extract linguistic and metadata features. Train supervised machine learning model.
+3. Training & Validation: Validate the model for accuracy using the latest evaluation techniques.
+4. Model Evaluation & deployment: Deploy the model and perform model testing to assess Real world
+performance.
+5. Interactive Frontend: Develop a frontend for the model using streamlit, to access the mode
+
+Step 1: Data Collection and Pre-processing
+Step 2: Model Development
+Step 3: Training and Validation
+Step 4: Model Evaluation & Deployment
+Step 5: Interactive Frontend
+
+Milestone 1
+
+• Preliminary data
+collection and preprocessing. 
+• Model development and validation using training and testing datasets. 
+• Model testing & frontend
+
+Milestone 2
+
+• Refine the model for improved accuracy. 
+• Conduct extensive testing and validation. 
+• Prepare the final mode & frontend and deploy
+
+Below are the steps explained in detail:
+
+Step 1 Data Collection and Preprocessing 
+
+Data Collection: • Gather a dataset of labeled real and fake news articles from social media platforms such as Twitter and
+Facebook. • Ensure the dataset includes a wide range of topics (politics, health, technology, etc.) and sources (credible
+and non-credible).
+Focus Areas: • Data Sourcing: Understanding different sources of data and their reliability. • API Usage: Using Twitter API, Facebook Graph API, and web scraping techniques. • Ethical Considerations: Ensuring data privacy and ethical data collection practices.
+
+Steps: • Identify and access APIs for data collection. • Write scripts to collect data from social media platforms. • Ensure diversity in topics and sources.
+Data Preprocessing: • Clean the dataset by removing duplicates, irrelevant data, and noise (e.g., special characters, links). • Tokenize and normalize the text, handling special characters, stopwords, and punctuation.
+Focus Areas: • Data Cleaning Techniques: Removing duplicates, irrelevant data, and noise. • Text Normalization: Tokenization, lowercasing, removing stopwords, punctuation. • Handling Missing Values: Techniques to manage missing or incomplete data. • Data Augmentation: Techniques to increase the size and diversity of the dataset.
+
+Steps: • Remove duplicates, irrelevant data, and noise (special characters, links). • Tokenize and normalize text (lowercasing, removing stopwords, punctuation). • Handle missing values and imbalanced data.
+
+Step 2 Model Development
+
+• Train supervised machine learning models (e.g., logistic regression, SVM, random forest, or deep learning
+models like LSTM) to classify the news as real or fake. • Fine-tune models using hyperparameter optimization and evaluate performance using validation datasets.
+Focus Areas: • Supervised Learning Algorithms: Logistic regression, SVM, random forest, LSTM, BERT. • Hyperparameter Tuning: Grid search, random search, and Bayesian optimization. • Model Evaluation: Cross-validation, accuracy, precision, recall, F1-score. • Ensemble Methods: Combining multiple models to improve performance.
+
+Steps: • Apply TF-IDF to extract term frequency features. • Use word embeddings (Word2Vec, GloVe) for semantic features. • Perform sentiment analysis to gauge the tone of the text. • Extract metadata features (publication date, source reliability)
+
+Step 3 Training and Validation
+
+• Extract linguistic and metadata features (e.g., word frequency, sentiment, publication date). • Use NLP techniques such as TF-IDF (Term Frequency-Inverse Document Frequency), word embeddings
+(Word2Vec or GloVe), and sentiment analysis to create meaningful input for machine learning models.
+Focus Areas: • NLP Techniques: TF-IDF, word embeddings (Word2Vec, GloVe), sentiment analysis. • Feature Extraction: Identifying and extracting relevant features from text and metadata. • Dimensionality Reduction: Techniques like PCA to reduce feature space.
+
+Steps: • Train initial models (logistic regression, SVM, random forest). • Experiment with deep learning models (LSTM, BERT). • Perform hyperparameter tuning using grid search or random search. • Evaluate models using cross-validation and metrics (accuracy, precision, recall, F1-score).
+
+Step 4 Model Evaluation and Deployment
+
+• Validate the model by testing it on unseen data to evaluate accuracy, precision, recall, and F1-score. • Test the system on real-world social media posts, adjusting for varying formats, languages, and writing
+styles.
+Focus Areas: • Model Validation Techniques: Cross-validation, holdout validation. • Performance Metrics: Accuracy, precision, recall, F1-score, ROC-AUC. • Real-World Testing: Testing on real-world social media posts, handling varying formats, languages, and
+writing styles.
+
+Steps: • Split data into training, validation, and test sets. • Validate model performance using cross-validation. • Test the model on real-world social media posts. • Adjust for varying formats, languages, and writing styles.
+
+Step 5 Interactive Frontend
+
+• Deploy the solution on a local machine or server. • Create a frontend using streamlit or Flask API, to demo the solution. • The frontend should provide the feature of entering a social media news and model should be able to flag it
+whether it is real or fake news.
+
+Focus Areas: • Model Deployment: Deploying models on local machines, servers, or cloud platforms. • Web Development: Using Streamlit or Flask for frontend development. • User Interface Design: Creating intuitive and user-friendly interfaces. • Integration: Connecting the frontend with the backend model.
+
+Steps: • Deploy the model on a local machine or server. • Develop a frontend using Streamlit or Flask. • Integrate the model with the frontend for real-time classification. • Ensure the frontend allows users to input social media posts and receive classification results
+
+Expected Project Outcomes
+
+Functional Model: Automated system capable of detecting fake news with high accuracy
+
+Software Requirements: • Python
+• Libraries: Tesseract/Open Hugging Face, OpenCV
+• Streamlit or Flask for frontend deployment

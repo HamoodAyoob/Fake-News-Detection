@@ -34,6 +34,35 @@ This project implements a sophisticated fake news detection system that analyzes
 - 📈 **Model comparison** dashboard
 - 🔒 **Privacy-focused** - no data stored
 
+---
+
+## ⚡ Quick Start
+
+If you just want to get running fast, here's the minimum steps needed:
+
+```bash
+# 1. Clone and enter the directory
+git clone https://github.com/HamoodAyoob/Fake-News-Detection.git
+cd fake-news-detection
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Download NLTK data
+python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('punkt_tab')"
+
+# 4. Run preprocessing (if starting from raw data)
+python src/data_preprocessing.py
+
+# 5. Train the model (first time only)
+python src/model_training.py
+
+# 6. Launch the app
+streamlit run app/streamlit_app.py
+```
+
+**That's it!** The app will open at `http://localhost:8501`
+
 ## ✨ Features
 
 ### 1. Single Article Analysis
@@ -235,11 +264,12 @@ fake-news-detection/
 ├── .streamlit/                 # Streamlit config
 │   └── config.toml
 │
+├── clean.py                    # Data cleanup script
 ├── requirements.txt            # Python dependencies
 ├── Dockerfile                  # Docker configuration
 ├── packages.txt                # System dependencies
 ├── .gitignore
-└── README.md
+│ └── README.md
 ```
 
 ## 🛠️ Technologies Used
@@ -323,6 +353,41 @@ port = 8501
 enableCORS = false
 ```
 
+### Verifying Your Installation
+
+To verify everything is installed correctly:
+
+```bash
+# Check Python version
+python --version
+
+# Verify all packages are installed
+pip list | grep -E "pandas|nltk|sklearn|streamlit"
+
+# Quick test - run this in Python:
+python -c "import nltk; import sklearn; import streamlit; print('All packages OK!')"
+```
+
+### Environment Variables
+
+You can configure Streamlit using environment variables:
+
+```bash
+# Set a specific port
+export STREAMLIT_SERVER_PORT=8501
+
+# Disable analytics
+export STREAMLIT_SERVER_HEADLESS=true
+
+# Enable CORS if needed
+export STREAMLIT_SERVER_ENABLE_CORS=true
+```
+
+On Windows (PowerShell):
+```powershell
+$env:STREAMLIT_SERVER_PORT = "8501"
+```
+
 ### Model Parameters
 ```python
 # TF-IDF Configuration
@@ -337,6 +402,69 @@ solver = 'saga'
 max_iter = 1000
 ```
 
-**Made with ❤️ and Python**
+---
 
-**Star ⭐ this repository if you found it helpful!**
+## ❓ Troubleshooting
+
+### Common Issues
+
+**1. "ModuleNotFoundError: No module named 'nltk'"**
+```bash
+pip install nltk
+python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('punkt_tab')"
+```
+
+**2. "FileNotFoundError: [Errno 2] No such file or directory: 'data/raw/Fake.csv'"**
+- Ensure you have the raw dataset files in `data/raw/`
+- Download from: https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset
+
+**3. "ModuleNotFoundError: No module named 'sklearn'"**
+- Install scikit-learn: `pip install scikit-learn`
+
+**4. Port already in use (8501)**
+```bash
+# Run on a different port
+streamlit run app/streamlit_app.py --server.port 8502
+```
+
+**5. Model files not found**
+- If you don't have a trained model, run:
+```bash
+python src/data_preprocessing.py
+python src/model_training.py
+```
+
+**6. Memory issues during training**
+- Reduce `max_features` in TF-IDF settings (try 2000 instead of 3000)
+- Or use a machine with more RAM
+
+### Performance Tips
+
+- For fastest startup, keep model files in `models/` directory
+- The app loads faster if you don't retrain from scratch each time
+- Batch prediction is more efficient than individual predictions for large datasets
+
+---
+
+## 🆘 Getting Help
+
+- **Issues**: https://github.com/HamoodAyoob/Fake-News-Detection/issues
+- **Discussions**: https://github.com/HamoodAyoob/Fake-News-Detection/discussions
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- [Clment Bisaillon](https://www.kaggle.com/datasets/clmentbisaillon) for the Fake and Real News Dataset
+- [Streamlit](https://streamlit.io/) for the amazing web framework
+- All open-source libraries used in this project
+
+---
+
+**Made with ❤️ and Python** 🎉
